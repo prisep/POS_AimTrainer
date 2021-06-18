@@ -5,7 +5,7 @@ import sample.dal.DatabaseManager;
 
 import java.util.List;
 
-public class UserDBDao implements dao<User>{
+public class UserDBDao implements Dao<User> {
     @Override
     public List getAll() {
         return DatabaseManager.getInstance().getAllUsers();
