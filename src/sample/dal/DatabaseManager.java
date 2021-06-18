@@ -69,35 +69,33 @@ public class DatabaseManager {
         return all;
     }
 
-//    public boolean updateUser(User s){
-//        boolean result = false;
-//        PreparedStatement preparedStatement;
-//        String stmt_insert = "UPDATE User SET catalognr=?, firstName=?, lastName=? WHERE idUser=?";
-//        try {
-//            try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
-//                preparedStatement = con.prepareStatement(stmt_insert);
-//                preparedStatement.setInt(1, s.getCatalognr());
-//                preparedStatement.setString(2, s.getFirstName());
-//                preparedStatement.setString(3, s.getLastname());
-//                preparedStatement.setInt(4, s.getIdUser());
-//
-//
-//                int rowsUpdated = preparedStatement.executeUpdate();
-//                if (rowsUpdated > 0) {
-//                    result = true;
-//                }
-//            }
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//
-//        return result;
-//    }
+    public boolean updateUser(User s){
+        boolean result = false;
+        PreparedStatement preparedStatement;
+        String stmt_insert = "UPDATE user SET password=?, WHERE idUser=?";
+        try {
+            try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
+                preparedStatement = con.prepareStatement(stmt_insert);
+                preparedStatement.setString(1, s.getPassword());
+                preparedStatement.setInt(2, s.getIdUser());
+
+
+                int rowsUpdated = preparedStatement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    result = true;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return result;
+    }
 
     public boolean insertUser (User s){
         boolean result = false;
         PreparedStatement preparedStatement;
-        String stmt_insert = "INSERT INTO User (username, password) VALUES (?, ?)";
+        String stmt_insert = "INSERT INTO user (username, password) VALUES (?, ?)";
         ResultSet resultSet;
         int id = -1;
 
@@ -110,6 +108,8 @@ public class DatabaseManager {
 
                 resultSet = preparedStatement.getGeneratedKeys();
                 if(resultSet.next()){
+                    id = resultSet.getInt(1);
+                    s.setIdUser(id);
                     result = true;
                 }
             }
@@ -123,7 +123,7 @@ public class DatabaseManager {
     public boolean deleteUser (int id){
         boolean result = false;
         PreparedStatement preparedStatement;
-        String stmt_insert = "DELETE FROM User WHERE idUser=?";
+        String stmt_insert = "DELETE FROM user WHERE idUser=?";
 
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
@@ -141,27 +141,27 @@ public class DatabaseManager {
         return result;
     }
 
-//    public User getById(int id){
-//        User s = null;
-//        ResultSet resultSet;
-//        String stmt = "SELECT * FROM User WHERE idUser=?";
-//        PreparedStatement preparedStatement;
-//
-//        try {
-//            try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
-//                //Statement wird erzeugt
-//                preparedStatement = con.prepareStatement(stmt);
-//                preparedStatement.setInt(1, id);
-//                resultSet = preparedStatement.executeQuery();
-//                if(resultSet.next()){
-//                    s = new User(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3), resultSet.getString(4));
-//                }
-//
-//            }
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//
-//        return s;
-//    }
+    public User getById(int id){
+        User s = null;
+        ResultSet resultSet;
+        String stmt = "SELECT * FROM user WHERE idUser=?";
+        PreparedStatement preparedStatement;
+
+        try {
+            try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
+                //Statement wird erzeugt
+                preparedStatement = con.prepareStatement(stmt);
+                preparedStatement.setInt(1, id);
+                resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    s = new User(resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4), resultSet.getDate(5));
+                }
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return s;
+    }
 }

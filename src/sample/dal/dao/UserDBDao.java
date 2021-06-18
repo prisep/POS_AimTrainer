@@ -1,32 +1,33 @@
 package sample.dal.dao;
 
+import sample.bll.User;
 import sample.dal.DatabaseManager;
 
 import java.util.List;
 
-public class UserDBDao implements dao{
+public class UserDBDao implements dao<User>{
     @Override
     public List getAll() {
         return DatabaseManager.getInstance().getAllUsers();
     }
 
     @Override
-    public Object getById(int id) {
-        return null;
+    public User getById(int id) {
+        return DatabaseManager.getInstance().getById(id);
     }
 
     @Override
-    public boolean insert(Object item) {
-        return false;
+    public boolean insert(User item) {
+        return DatabaseManager.getInstance().insertUser(item);
     }
 
     @Override
-    public boolean update(Object item) {
-        return false;
+    public boolean update(User item) {
+        return DatabaseManager.getInstance().updateUser(item);
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+        return DatabaseManager.getInstance().deleteUser(id);
     }
 }

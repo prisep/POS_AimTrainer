@@ -7,6 +7,15 @@ public class User {
     private String password;
     private int highscore;
     private Date lastOnline;
+    private int idUser;
+
+    public User(String username, String password, int highscore, Date lastOnline, int idUser) {
+        this.username = username;
+        this.password = password;
+        this.highscore = highscore;
+        this.lastOnline = lastOnline;
+        this.idUser = idUser;
+    }
 
     public User(String username, String password, int highscore, Date lastOnline) {
         this.username = username;
@@ -18,6 +27,14 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getUsername() {
