@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserDBDao implements Dao<User> {
     @Override
-    public List getAll() {
+    public List<User> getAll() {
         return DatabaseManager.getInstance().getAllUsers();
     }
 
