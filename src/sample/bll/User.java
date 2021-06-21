@@ -3,30 +3,50 @@ package sample.bll;
 import java.sql.Date;
 
 public class User {
+    private int idUser;
     private String username;
     private String password;
-    private int highscore;
+    private int highscoreSpeed;
+    private int highscoreAccuracy;
+    private int highscorePrecision;
     private Date lastOnline;
-    private int idUser;
 
-    public User(String username, String password, int highscore, Date lastOnline, int idUser) {
+    public User(String username, String password, int highscoreSpeed, int highscoreAccuracy, int highscorePrecision, Date lastOnline) {
         this.username = username;
         this.password = password;
-        this.highscore = highscore;
-        this.lastOnline = lastOnline;
-        this.idUser = idUser;
-    }
-
-    public User(String username, String password, int highscore, Date lastOnline) {
-        this.username = username;
-        this.password = password;
-        this.highscore = highscore;
+        this.highscoreSpeed = highscoreSpeed;
+        this.highscoreAccuracy = highscoreAccuracy;
+        this.highscorePrecision = highscorePrecision;
         this.lastOnline = lastOnline;
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public int getHighscoreSpeed() {
+        return highscoreSpeed;
+    }
+
+    public void setHighscoreSpeed(int highscoreSpeed) {
+        this.highscoreSpeed = highscoreSpeed;
+    }
+
+    public int getHighscoreAccuracy() {
+        return highscoreAccuracy;
+    }
+
+    public void setHighscoreAccuracy(int highscoreAccuracy) {
+        this.highscoreAccuracy = highscoreAccuracy;
+    }
+
+    public int getHighscorePrecision() {
+        return highscorePrecision;
+    }
+
+    public void setHighscorePrecision(int highscorePrecision) {
+        this.highscorePrecision = highscorePrecision;
     }
 
     public int getIdUser() {
@@ -51,14 +71,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getHighscore() {
-        return highscore;
-    }
-
-    public void setHighscore(int highscore) {
-        this.highscore = highscore;
     }
 
     public Date getLastOnline() {

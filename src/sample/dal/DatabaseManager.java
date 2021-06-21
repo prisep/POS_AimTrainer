@@ -57,7 +57,7 @@ public class DatabaseManager {
                 //resultset durchiterieren
                 while(resultSet.next()){
                     all.add(new User(resultSet.getString(1), resultSet.getString(2),
-                            resultSet.getInt(3), resultSet.getDate(4)));
+                            resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(4)));
 
                 }
                 return all;
@@ -154,7 +154,8 @@ public class DatabaseManager {
                 preparedStatement.setInt(1, id);
                 resultSet = preparedStatement.executeQuery();
                 if(resultSet.next()){
-                    s = new User(resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4), resultSet.getDate(5));
+                    s = new User(resultSet.getString(1), resultSet.getString(2),
+                            resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(4));
                 }
 
             }
