@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.levelController">
+   <children>
+      <Button fx:id="bttn_launchAccuray" layoutX="70.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Accuracy Mode" />
+      <Button fx:id="bttn_launchSpeed" layoutX="248.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Speed" />
+      <Button fx:id="bttn_launchPrecision" layoutX="423.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Precision" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="34.0" prefHeight="98.0" prefWidth="392.0" text="Aim-Trainer" textAlignment="JUSTIFY">
+         <font>
+            <Font name="Corbel Light Italic" size="61.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_welcomeMsg" alignment="CENTER" layoutX="188.0" layoutY="132.0" prefHeight="49.0" prefWidth="224.0" text="Welcome back &amp;Username">
+         <font>
+            <Font name="Corbel Light" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
