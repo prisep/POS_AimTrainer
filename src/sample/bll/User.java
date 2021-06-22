@@ -1,6 +1,7 @@
 package sample.bll;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class User {
     private int idUser;
@@ -79,5 +80,19 @@ public class User {
 
     public void setLastOnline(Date lastOnline) {
         this.lastOnline = lastOnline;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username.equals(user.username) &&
+                password.equals(user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
     }
 }

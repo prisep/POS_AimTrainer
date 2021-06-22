@@ -48,16 +48,21 @@ public class DatabaseManager {
         Statement stmt;
         ResultSet resultSet;
 
-        String query = "SELECT * FROM user";
+        String query = "SELECT * FROM spieler";
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
                 //Statement wird erzeugt
                 stmt = con.createStatement();
                 resultSet = stmt.executeQuery(query);
-                //resultset durchiterieren
                 while(resultSet.next()){
-                    all.add(new User(resultSet.getString(1), resultSet.getString(2),
-                            resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(4)));
+                    resultSet.getInt(4) ;
+                    if(!resultSet.wasNull()){
+                        all.add(new User(resultSet.getString(1), resultSet.getString(2),
+                                resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(4)));
+                    }
+                    else{
+                        all.add(new User(resultSet.getString(2), resultSet.getString(3)));
+                    }
 
                 }
                 return all;
@@ -72,7 +77,7 @@ public class DatabaseManager {
     public boolean updateUser(User s){
         boolean result = false;
         PreparedStatement preparedStatement;
-        String stmt_insert = "UPDATE user SET password=?, WHERE idUser=?";
+        String stmt_insert = "UPDATE spieler SET password=?, WHERE idUser=?";
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
                 preparedStatement = con.prepareStatement(stmt_insert);
@@ -95,7 +100,7 @@ public class DatabaseManager {
     public boolean insertUser (User s){
         boolean result = false;
         PreparedStatement preparedStatement;
-        String stmt_insert = "INSERT INTO user (username, password) VALUES (?, ?)";
+        String stmt_insert = "INSERT INTO spieler (username, password) VALUES (?, ?)";
         ResultSet resultSet;
         int id = -1;
 
@@ -123,7 +128,7 @@ public class DatabaseManager {
     public boolean deleteUser (int id){
         boolean result = false;
         PreparedStatement preparedStatement;
-        String stmt_insert = "DELETE FROM user WHERE idUser=?";
+        String stmt_insert = "DELETE FROM spieler WHERE idUser=?";
 
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
@@ -144,7 +149,7 @@ public class DatabaseManager {
     public User getById(int id){
         User s = null;
         ResultSet resultSet;
-        String stmt = "SELECT * FROM user WHERE idUser=?";
+        String stmt = "SELECT * FROM spieler WHERE idUser=?";
         PreparedStatement preparedStatement;
 
         try {

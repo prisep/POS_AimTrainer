@@ -6,8 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.bll.SpeedMode;
 
@@ -50,9 +52,38 @@ public class Main extends Application {
                 }
             }
         });
+
+        loginOpen();
+
+
+
+
+
         primaryStage.setTitle("Test Programm");
         primaryStage.setScene(new Scene(new Pane(c)));
         primaryStage.show();
+    }
+
+    private void loginOpen() {
+        try {
+            FXMLLoader loader = null;
+            AnchorPane root = null;
+            LoginController controller = null;
+            loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Stage stage = null;
+            Scene scene = null;
+            root = loader.load();
+            controller = loader.getController();
+            stage = new Stage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }
 
     private void hit() {
