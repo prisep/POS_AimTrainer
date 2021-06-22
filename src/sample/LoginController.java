@@ -1,5 +1,6 @@
 package sample;
 
+import gui.levelController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,12 +65,12 @@ public class LoginController implements Initializable {
 
     }
 
-    private void showLevelScreen()  {
+    private static void showLevelScreen()  {
         try {
             FXMLLoader loader = null;
             AnchorPane root = null;
             levelController controller = null;
-            loader = new FXMLLoader(getClass().getResource("level.fxml"));
+            loader = new FXMLLoader(LoginController.class.getResource("level.fxml"));
             Stage stage = null;
             Scene scene = null;
             root = loader.load();

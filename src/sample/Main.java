@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import sample.bll.SpeedMode;
 
 public class Main extends Application {
@@ -54,10 +56,6 @@ public class Main extends Application {
         });
 
         loginOpen();
-
-
-
-
 
         primaryStage.setTitle("Test Programm");
         primaryStage.setScene(new Scene(new Pane(c)));

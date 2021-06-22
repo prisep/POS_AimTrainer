@@ -20,7 +20,7 @@ public class levelController {
 
     private void openAccuracyMode() throws IOException {
         Stage aScene = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./level.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../level.fxml"));
         Parent localRoot = loader.load();
         aScene.setTitle("Accuracy Mode");
         aScene.setScene(new Scene(localRoot));
