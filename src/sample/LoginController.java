@@ -1,6 +1,5 @@
 package sample;
 
-import gui.levelController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,15 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import sample.bll.User;
 import sample.dal.dao.Dao;
 import sample.dal.dao.UserDBDao;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +58,14 @@ public class LoginController implements Initializable {
         User checkUser = new User(tfusername.getText(), pfPassword.getText());
         if(allowedToLogin(checkUser)){
             currentUser = checkUser;
-            showLevelScreen();
             Stage thisStage = (Stage) tfusername.getScene().getWindow();
             thisStage.close();
+            showLevelScreen();
+
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No user found");
+            alert.show();
         }
 
 
@@ -75,7 +76,7 @@ public class LoginController implements Initializable {
             FXMLLoader loader = null;
             AnchorPane root = null;
             levelController controller = null;
-            loader = new FXMLLoader(LoginController.class.getResource("level.fxml"));
+            loader = new FXMLLoader(getClass().getResource("level.fxml"));
             Stage stage = null;
             Scene scene = null;
             root = loader.load();
