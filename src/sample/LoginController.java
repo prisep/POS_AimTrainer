@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import sample.bll.User;
 import sample.dal.dao.Dao;
 import sample.dal.dao.UserDBDao;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+    private  User currentUser;
     @FXML
     private TextField tfusername;
     @FXML
@@ -59,13 +61,16 @@ public class LoginController implements Initializable {
         showAlert();
         User checkUser = new User(tfusername.getText(), pfPassword.getText());
         if(allowedToLogin(checkUser)){
+            currentUser = checkUser;
             showLevelScreen();
+            Stage thisStage = (Stage) tfusername.getScene().getWindow();
+            thisStage.close();
         }
 
 
     }
 
-    private static void showLevelScreen()  {
+    private  void showLevelScreen()  {
         try {
             FXMLLoader loader = null;
             AnchorPane root = null;
@@ -75,6 +80,7 @@ public class LoginController implements Initializable {
             Scene scene = null;
             root = loader.load();
             controller = loader.getController();
+            controller.setUser(currentUser);
             stage = new Stage();
             scene = new Scene(root);
             stage.setScene(scene);

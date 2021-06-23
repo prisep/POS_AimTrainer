@@ -5,12 +5,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.levelController">
    <children>
-      <Button fx:id="bttn_launchAccuray" layoutX="70.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Accuracy Mode" />
-      <Button fx:id="bttn_launchSpeed" layoutX="248.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Speed" />
-      <Button fx:id="bttn_launchPrecision" layoutX="423.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Precision" />
+      <Button fx:id="bttn_launchAccuray" layoutX="70.0" layoutY="274.0" mnemonicParsing="false" onAction="#accuracyGameMode" prefHeight="26.0" prefWidth="103.0" text="Accuracy Mode" />
+      <Button fx:id="bttn_launchSpeed" layoutX="248.0" layoutY="274.0" mnemonicParsing="false" onAction="#speedGameMode" prefHeight="26.0" prefWidth="103.0" text="Speed" />
+      <Button fx:id="bttn_launchPrecision" layoutX="423.0" layoutY="274.0" mnemonicParsing="false" onAction="#precisionGameMode" prefHeight="26.0" prefWidth="103.0" text="Precision" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="34.0" prefHeight="98.0" prefWidth="392.0" text="Aim-Trainer" textAlignment="JUSTIFY">
          <font>
             <Font name="Corbel Light Italic" size="61.0" />

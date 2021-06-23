@@ -22,18 +22,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Canvas c = new Canvas(1000, 1000);
+        Canvas c = new Canvas(1000,1000);
         GraphicsContext context = c.getGraphicsContext2D();
-        context.setFill(Color.BLACK);
-        context.fillRect(0, 0, 1000, 1000);
 
 
-        //context.fillRect(50,50,200,200);
-        //context.setFill(Color.RED);
-        //context.setStroke(Color.BLACK);
-        //c.setOnMouseMoved();
+
         SpeedMode mode = new SpeedMode();
-        enemycoordinates = mode.place_Random_Rectangle(context);
+
 
         /*c.setOnMouseDragged(event -> {
             double x = event.getX();
@@ -57,9 +52,9 @@ public class Main extends Application {
 
         loginOpen();
 
-        primaryStage.setTitle("Test Programm");
-        primaryStage.setScene(new Scene(new Pane(c)));
-        primaryStage.show();
+        //primaryStage.setTitle("Aim Tester");
+        //primaryStage.setScene(new Scene(new Pane(c)));
+        //primaryStage.show();
     }
 
     private void loginOpen() {
@@ -84,9 +79,6 @@ public class Main extends Application {
         }
     }
 
-    private void hit() {
-
-    }
 
 
     public static void main(String[] args) {
