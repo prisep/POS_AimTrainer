@@ -30,11 +30,22 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnRegister;
 
+    private boolean success = false;
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+
+
     Dao dao;
     List<User> users = new ArrayList<>();
     List<String> usernames = new ArrayList<>();
     List<String> passwords = new ArrayList<>();
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
 
     @FXML
     private void registerClicked(ActionEvent actionEvent) {
@@ -60,40 +71,15 @@ public class LoginController implements Initializable {
             currentUser = checkUser;
             Stage thisStage = (Stage) tfusername.getScene().getWindow();
             thisStage.close();
-            showLevelScreen();
+            this.success = true;
 
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR, "No user found");
             alert.show();
         }
-
-
     }
 
-    private  void showLevelScreen()  {
-        try {
-            FXMLLoader loader = null;
-            AnchorPane root = null;
-            levelController controller = null;
-            loader = new FXMLLoader(getClass().getResource("level.fxml"));
-            Stage stage = null;
-            Scene scene = null;
-            root = loader.load();
-            controller = loader.getController();
-            controller.setUser(currentUser);
-            stage = new Stage();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Levels");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-
-    }
 
     public boolean allowedToLogin(User checkUser){
         boolean found = false;

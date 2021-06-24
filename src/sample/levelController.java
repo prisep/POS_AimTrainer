@@ -54,8 +54,6 @@ public class levelController {
 
             root = loader.load();
             controller = loader.getController();
-
-
                 switch (selectedMode){
                     case Accuracy: controller.setMode(new Mode(Modes.Accuracy, c, context));
                         break;
@@ -64,21 +62,17 @@ public class levelController {
                     case Precision: controller.setMode(new Mode(Modes.Precision, c, context));
                         break;
                 }
-
             stage = new Stage();
             scene = new Scene(root);
+            root.getChildren().add( c); 
             stage.setScene(scene);
             stage.setTitle("Game");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-
         }
         catch (Exception e){
             System.out.println(e);
         }
-
-
-
     }
 
     @FXML

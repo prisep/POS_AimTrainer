@@ -106,7 +106,7 @@ public class DatabaseManager {
 
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
-                preparedStatement = con.prepareStatement(stmt_insert, new String[]{"idUser"});
+                preparedStatement = con.prepareStatement(stmt_insert, new String[]{"id"});
                 preparedStatement.setString(1, s.getUsername());
                 preparedStatement.setString(2, s.getPassword());
                 preparedStatement.execute();

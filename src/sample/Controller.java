@@ -16,10 +16,6 @@ public class Controller implements Initializable {
 
     public void setMode(Mode mode){
         currentMode = mode;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
         switch (currentMode.getMode()){
             case Accuracy: currentMode.accuracyLevel(currentMode.getC(), currentMode.getContext());
                 break;
@@ -28,5 +24,10 @@ public class Controller implements Initializable {
             case Precision: currentMode.precisionLevel(currentMode.getC(), currentMode.getContext());
                 break;
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
