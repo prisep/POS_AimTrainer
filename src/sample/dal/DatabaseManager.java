@@ -61,7 +61,7 @@ public class DatabaseManager {
                                 resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(4)));
                     }
                     else{
-                        all.add(new User(resultSet.getString(2), resultSet.getString(3)));
+                        all.add(new User(resultSet.getString(1), resultSet.getString(2)));
                     }
 
                 }
@@ -77,12 +77,15 @@ public class DatabaseManager {
     public boolean updateUser(User s){
         boolean result = false;
         PreparedStatement preparedStatement;
-        String stmt_insert = "UPDATE spieler SET password=?, WHERE idUser=?";
+        String stmt_insert = "UPDATE spieler SET lastOnline=?, highscoreSpeed=?, highscorePrecision=?, highscoreAccuracy=? WHERE username=?";
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
                 preparedStatement = con.prepareStatement(stmt_insert);
-                preparedStatement.setString(1, s.getPassword());
-                preparedStatement.setInt(2, s.getIdUser());
+                preparedStatement.setDate(1, s.getLastOnline());
+                preparedStatement.setInt(2, s.getHighscoreSpeed());
+                preparedStatement.setInt(3, s.getHighscorePrecision());
+                preparedStatement.setInt(4, s.getHighscoreAccuracy());
+                preparedStatement.setString(5, s.getUsername());
 
 
                 int rowsUpdated = preparedStatement.executeUpdate();
@@ -106,15 +109,13 @@ public class DatabaseManager {
 
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
-                preparedStatement = con.prepareStatement(stmt_insert, new String[]{"id"});
+                preparedStatement = con.prepareStatement(stmt_insert);
                 preparedStatement.setString(1, s.getUsername());
                 preparedStatement.setString(2, s.getPassword());
                 preparedStatement.execute();
 
                 resultSet = preparedStatement.getGeneratedKeys();
                 if(resultSet.next()){
-                    id = resultSet.getInt(1);
-                    s.setIdUser(id);
                     result = true;
                 }
             }

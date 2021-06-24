@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,15 +12,23 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import sample.bll.User;
+import sample.dal.dao.Dao;
+import sample.dal.dao.UserDBDao;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Main extends Application {
-    int[][] enemycoordinates = new int[1000][1000];
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         loginOpen();
+
 
     }
 
@@ -65,6 +74,7 @@ public class Main extends Application {
             stage.setTitle("Levels");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+
         } catch (Exception e) {
             System.out.println(e);
         }

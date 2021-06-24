@@ -17,7 +17,9 @@ import sample.dal.dao.Dao;
 import sample.dal.dao.UserDBDao;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -60,6 +62,8 @@ public class LoginController implements Initializable {
             usernames.add(newUser.getUsername());
             passwords.add(newUser.getPassword());
             dao.insert(newUser);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Succesfully registered");
+            alert.show();
         }
     }
 
@@ -75,7 +79,7 @@ public class LoginController implements Initializable {
 
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "No user found");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No user found: Password or Username incorrect");
             alert.show();
         }
     }

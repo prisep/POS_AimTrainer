@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class User {
-    private int idUser;
+
     private String username;
     private String password;
     private int highscoreSpeed;
@@ -19,11 +19,18 @@ public class User {
         this.highscoreAccuracy = highscoreAccuracy;
         this.highscorePrecision = highscorePrecision;
         this.lastOnline = lastOnline;
+
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.highscoreSpeed = 0;
+        this.highscoreAccuracy = 0;
+        this.highscorePrecision = 0;
+        long millis=System.currentTimeMillis();
+        java.sql.Date date =new java.sql.Date(millis);
+        this.lastOnline = date;
     }
 
     public int getHighscoreSpeed() {
@@ -50,13 +57,6 @@ public class User {
         this.highscorePrecision = highscorePrecision;
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
 
     public String getUsername() {
         return username;
