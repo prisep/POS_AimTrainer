@@ -33,6 +33,12 @@ public class User {
         this.lastOnline = date;
     }
 
+    public User(String username, String password, Date lastOnline) {
+        this.username = username;
+        this.password = password;
+        this.lastOnline = lastOnline;
+    }
+
     public int getHighscoreSpeed() {
         return highscoreSpeed;
     }

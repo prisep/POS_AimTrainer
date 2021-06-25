@@ -71,8 +71,9 @@ public class LoginController implements Initializable {
     private void loginClicked(ActionEvent actionEvent) {
         showAlert();
         User checkUser = new User(tfusername.getText(), pfPassword.getText());
-        if(allowedToLogin(checkUser)){
-            currentUser = checkUser;
+        User validUser = allowedToLogin(checkUser);
+        if(validUser != null){
+            currentUser = validUser;
             Stage thisStage = (Stage) tfusername.getScene().getWindow();
             thisStage.close();
             this.success = true;
@@ -85,11 +86,11 @@ public class LoginController implements Initializable {
     }
 
 
-    public boolean allowedToLogin(User checkUser){
-        boolean found = false;
+    public User allowedToLogin(User checkUser){
+        User found = null;
         for (User user: users) {
             if(user.equals(checkUser)){
-                return found = true;
+                return user;
             }
         }
         return found;

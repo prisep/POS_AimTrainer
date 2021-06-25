@@ -58,10 +58,16 @@ public class DatabaseManager {
                     resultSet.getInt(4) ;
                     if(!resultSet.wasNull()){
                         all.add(new User(resultSet.getString(1), resultSet.getString(2),
-                                resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(4)));
+                                resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(6)));
                     }
                     else{
-                        all.add(new User(resultSet.getString(1), resultSet.getString(2)));
+                        resultSet.getDate(6);
+                        if(!resultSet.wasNull()) {
+                            all.add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getDate(6)));
+                        }
+                        else{
+                            all.add(new User(resultSet.getString(1), resultSet.getString(2)));
+                        }
                     }
 
                 }
