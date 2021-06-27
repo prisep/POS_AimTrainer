@@ -107,6 +107,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dao = new UserDBDao();
         users = dao.getAll();
+        users.remove(0);
         usernames = new ArrayList<>();
         for (User user: users) {
             usernames.add(user.getUsername());

@@ -82,10 +82,10 @@ public class levelController {
             scene = new Scene(root);
             root.getChildren().add( c);
             stage.setScene(scene);
-            stage.setX(screenBounds.getMinX());
+            /*stage.setX(screenBounds.getMinX());
             stage.setY(screenBounds.getMinY());
             stage.setWidth(screenBounds.getWidth());
-            stage.setHeight(screenBounds.getHeight());
+            stage.setHeight(screenBounds.getHeight());*/
             stage.setTitle("Game");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();

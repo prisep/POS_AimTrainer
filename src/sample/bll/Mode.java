@@ -1,5 +1,6 @@
 package sample.bll;
 
+import com.sun.prism.paint.Paint;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -54,8 +55,13 @@ public class Mode {
         context.setFill(Color.BLACK);
         context.fillRect(0,0,1000,1000);
         place_Random_Rectangle_With_High_Points(context);
+        final int[][] firstClick = {{0}};
+        final double[] timeStart = new double[1];
         c.setOnMouseClicked(event -> {
-
+            if(firstClick[0][0] == 0){
+                timeStart[0] = System.currentTimeMillis();
+            }
+            firstClick[0][0]++;
             isHit.set(false);
 
             int x = (int)event.getX();
@@ -77,6 +83,11 @@ public class Mode {
                     enemycoordinates[i][1] *= -1;
 
                     if (isLastHit()) {
+                        context.setFill(Color.WHITE);
+
+                        final double timeEnd = System.currentTimeMillis();
+                        context.fillText("Sie haben von maximalen " + maxPoints + " Punkten  " + points + " Punkte erreicht", 250,420);
+                        context.fillText("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht", 250,440);
                         System.out.println("Sie haben von maximalen " + maxPoints + "  " + points + " erreicht");
                     }
                     isHit.set(true);
@@ -102,51 +113,64 @@ public class Mode {
         Random rand = new Random(); //instance of random class
         int upperbound = 960;
         //generate random values from 0-24
+
         int xstart = rand.nextInt(upperbound);
         int ystart = rand.nextInt(upperbound);
-
-        enemycoordinates[0][0] = xstart;
-        enemycoordinates[0][1] = ystart;
-
         context.setFill(Color.GOLD);
         context.fillRect(xstart,ystart,40,40);
 
+
+        enemycoordinates[0][0] = xstart;
+        enemycoordinates[0][1] = ystart;
+        final int[][] firstClick = {{0}};
+        final double[] timeStart = new double[1];
         c.setOnMouseClicked(event -> {
 
-
+            if(firstClick[0][0] == 0){
+                timeStart[0] = System.currentTimeMillis();
+            }
+            firstClick[0][0]++;
             accuracyIdx++;
             cntShoots++;
             int x = (int)event.getX();
             int y = (int)event.getY();
             System.out.println("X-Achse: " + x + "  Y-Achse " + y);
 
-            for (int i = 0; i < enemycoordinates.length; i++) {
-                if(enemycoordinates[i][0] <= x && enemycoordinates[i][0]+40 >= x && enemycoordinates[i][1] <= y && enemycoordinates[i][1]+40 >= y){
+
+
+
+                if(enemycoordinates[0][0] <= x && enemycoordinates[0][0]+40 >= x && enemycoordinates[0][1] <= y && enemycoordinates[0][1]+40 >= y){
                     System.out.println("HIT!!!");
                     context.setFill(Color.BLACK);
-                    context.fillRect(enemycoordinates[i][0],enemycoordinates[i][1],40,40);
-                    enemycoordinates[i][0] *= -1;
-                    enemycoordinates[i][1] *= -1;
+                    context.fillRect(enemycoordinates[0][0],enemycoordinates[0][1],40,40);
+                    enemycoordinates[0][0] *= -1;
+                    enemycoordinates[0][1] *= -1;
                     cntHits++;
-                    if(accuracyIdx >= enemycoordinates.length){
+                    if(accuracyIdx >= 30){
                         //System.out.println("Sie haben alle Ziele getroffen");
                         fertig[0] = true;
+                        final double timeEnd = System.currentTimeMillis();
                         System.out.println("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.");
                         System.out.println("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%");
+                        context.setFill(Color.WHITE);
+
+                        context.fillText("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.", 250,400);
+                        context.fillText("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%", 250,420);
+                        context.fillText("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht", 250,440);
                     }
 
                 }else{
                     cntFails++;
                     context.setFill(Color.BLACK);
-                    context.fillRect(enemycoordinates[accuracyIdx-1][0],enemycoordinates[accuracyIdx-1][1],40,40);
+                    context.fillRect(enemycoordinates[0][0],enemycoordinates[0][1],40,40);
                 }
-            }
+
             if(fertig[0] == false){
                 int x1 = rand.nextInt(upperbound);
                 int y1 = rand.nextInt(upperbound);
 
-                enemycoordinates[accuracyIdx][0] = x1;
-                enemycoordinates[accuracyIdx][1] = y1;
+                enemycoordinates[0][0] = x1;
+                enemycoordinates[0][1] = y1;
 
                 context.setFill(Color.GOLD);
                 context.fillRect(x1,y1,40,40);
@@ -158,8 +182,14 @@ public class Mode {
         context.setFill(Color.BLACK);
         context.fillRect(0,0,1000,1000);
         place_Random_Rectangle(context);
+        final int[][] firstClick = {{0}};
+        final double[] timeStart = new double[1];
         c.setOnMouseClicked(event -> {
 
+            if(firstClick[0][0] == 0){
+                timeStart[0] = System.currentTimeMillis();
+            }
+            firstClick[0][0]++;
             cntShoots++;
             int x = (int)event.getX();
             int y = (int)event.getY();
@@ -173,9 +203,17 @@ public class Mode {
                     enemycoordinates[i][1] *= -1;
                     cntHits++;
                     if(isLastHit()){
-                        System.out.println("Sie haben alle Ziele getroffen");
+                        //System.out.println("Sie haben alle Ziele getroffen");
                         System.out.println("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.");
                         System.out.println("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%");
+                        final double timeEnd = System.currentTimeMillis();
+                        System.out.println("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht");
+
+                        context.setFill(Color.WHITE);
+
+                        context.fillText("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.", 250,400);
+                        context.fillText("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%", 250,420);
+                        context.fillText("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht", 250,440);
                     }
 
                 }else{
