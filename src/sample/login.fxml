@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="344.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="344.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
    <children>
       <Label layoutX="33.0" layoutY="48.0" text="Username">
          <font>
@@ -35,7 +34,7 @@
             <ColorAdjust />
          </effect>
       </Button>
-      <Button fx:id="btnLogin" layoutX="140.0" layoutY="296.0" mnemonicParsing="false" onAction="#loginClicked" text="Login">
+      <Button fx:id="btnLogin" defaultButton="true" layoutX="140.0" layoutY="296.0" mnemonicParsing="false" onAction="#loginClicked" text="Login">
          <font>
             <Font name="Segoe UI Black" size="12.0" />
          </font>
