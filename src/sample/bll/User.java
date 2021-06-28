@@ -39,6 +39,10 @@ public class User {
         this.lastOnline = lastOnline;
     }
 
+    public User(String username) {
+        this.username = username;
+    }
+
     public int getHighscoreSpeed() {
         return highscoreSpeed;
     }
@@ -93,8 +97,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return username.equals(user.username) &&
-                password.equals(user.password);
+        return username.equals(user.username);
     }
 
     @Override

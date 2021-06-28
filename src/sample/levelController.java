@@ -46,13 +46,19 @@ public class levelController {
 
     private void openSelectedGameMode(Modes selectedMode) {
         try{
-            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+
+            Screen screen = Screen.getPrimary();
+            Rectangle2D screenBounds = screen.getBounds();
+
+
+
             double height = screenBounds.getHeight();
             double width  = screenBounds.getWidth();
             Canvas c = new Canvas(500,500);
             c.setHeight(height);
             c.setWidth(width);
             GraphicsContext context = c.getGraphicsContext2D();
+            context.fillRect(0,0, width, height);
             FXMLLoader loader = null;
             GridPane root = null;
             Controller controller = null;
@@ -86,6 +92,7 @@ public class levelController {
             stage.setY(screenBounds.getMinY());
             stage.setWidth(screenBounds.getWidth());
             stage.setHeight(screenBounds.getHeight());
+            stage.setFullScreen(true);
             stage.setTitle("Game");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();

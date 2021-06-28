@@ -1,9 +1,12 @@
 package sample.bll;
 
 import com.sun.prism.paint.Paint;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import sample.dal.dao.Dao;
 import sample.dal.dao.UserDBDao;
 
@@ -66,7 +69,6 @@ public class Mode {
     public void precisionLevel(Canvas c, GraphicsContext context) {
         AtomicBoolean isHit = new AtomicBoolean(false);
         context.setFill(Color.BLACK);
-        context.fillRect(0,0,1000,1000);
         place_Random_Rectangle_With_High_Points(context);
         final int[][] firstClick = {{0}};
         final double[] timeStart = new double[1];
@@ -105,7 +107,7 @@ public class Mode {
 
 
                         //Highscore
-                        if((timeEnd - timeStart[0])/(double)1000 > CurrentUser.getHighscorePrecision()){
+                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscorePrecision()){
                             CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
                             dao.update(CurrentUser);
                         }
@@ -126,18 +128,22 @@ public class Mode {
 
     public void accuracyLevel(Canvas c, GraphicsContext context) {
         context.setFill(Color.BLACK);
-        context.fillRect(0,0,1000,1000);
 
 
         final boolean[] fertig = {false};
 
 
         Random rand = new Random(); //instance of random class
-        int upperbound = 960;
+        Screen screen = Screen.getPrimary();
+        Rectangle2D screenBounds = screen.getBounds();
+        double height = screenBounds.getHeight();
+        double width  = screenBounds.getWidth();
+        int upperboundx = (int) width;
+        int upperboundy = (int) height;
         //generate random values from 0-24
 
-        int xstart = rand.nextInt(upperbound);
-        int ystart = rand.nextInt(upperbound);
+        int xstart = rand.nextInt(upperboundx - 40);
+        int ystart = rand.nextInt(upperboundy - 40);
         context.setFill(Color.GOLD);
         context.fillRect(xstart,ystart,40,40);
 
@@ -182,7 +188,7 @@ public class Mode {
 
 
                         //Highscore
-                        if((timeEnd - timeStart[0])/(double)1000 > CurrentUser.getHighscoreAccuracy()){
+                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscoreAccuracy()){
                             CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
                             dao.update(CurrentUser);
                         }
@@ -196,8 +202,8 @@ public class Mode {
                 }
 
             if(fertig[0] == false){
-                int x1 = rand.nextInt(upperbound);
-                int y1 = rand.nextInt(upperbound);
+                int x1 = rand.nextInt(upperboundx);
+                int y1 = rand.nextInt(upperboundy);
 
                 enemycoordinates[0][0] = x1;
                 enemycoordinates[0][1] = y1;
@@ -247,11 +253,14 @@ public class Mode {
 
 
                         //Highscore
-                        if((timeEnd - timeStart[0])/(double)1000 > CurrentUser.getHighscoreSpeed()){
+                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscoreSpeed()){
                             CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
                             dao.update(CurrentUser);
                         }
-                        context.fillText("Highscore: "+CurrentUser.getHighscorePrecision() + " Sekunden", 250,460);
+
+                        if(CurrentUser.getHighscoreSpeed() != 0){
+                            context.fillText("Highscore: "+CurrentUser.getHighscorePrecision() + " Sekunden", 250,460);
+                        }
                     }
 
                 }else{
@@ -284,8 +293,14 @@ public class Mode {
             Random rand = new Random(); //instance of random class
             int upperbound = 960;
             //generate random values from 0-24
-            int x = rand.nextInt(upperbound);
-            int y = rand.nextInt(upperbound);
+            Screen screen = Screen.getPrimary();
+            Rectangle2D screenBounds = screen.getBounds();
+            double height = screenBounds.getHeight();
+            double width  = screenBounds.getWidth();
+            int upperboundx = (int) width;
+            int upperboundy = (int) height;
+            int x = rand.nextInt(upperboundx - 40);
+            int y = rand.nextInt(upperboundy - 40);
 
             for (int j = 0; j <= i; j++) {
                 if(enemycoordinates[j][0]-40 <= x && enemycoordinates[j][0]+80 >= x && enemycoordinates[j][1]-40 <= y && enemycoordinates[j][1]+80 >= y){
@@ -318,10 +333,15 @@ public class Mode {
 
             boolean foundsameCo = false;
             Random rand = new Random(); //instance of random class
-            int upperbound = 960;
             //generate random values from 0-24
-            int x = rand.nextInt(upperbound);
-            int y = rand.nextInt(upperbound);
+            Screen screen = Screen.getPrimary();
+            Rectangle2D screenBounds = screen.getBounds();
+            double height = screenBounds.getHeight();
+            double width  = screenBounds.getWidth();
+            int upperboundx = (int) width;
+            int upperboundy = (int) height;
+            int x = rand.nextInt(upperboundx - 40);
+            int y = rand.nextInt(upperboundy - 40);
 
             for (int j = 0; j <= i; j++) {
                 if(enemycoordinates[j][0]-40 <= x && enemycoordinates[j][0]+80 >= x && enemycoordinates[j][1]-40 <= y && enemycoordinates[j][1]+80 >= y){

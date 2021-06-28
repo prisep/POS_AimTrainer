@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
     @FXML
     private void registerClicked(ActionEvent actionEvent) {
         showAlert();
-        if(users.contains(tfusername.getText())){
+        if(users.contains(new User(tfusername.getText()))){
             Alert alert = new Alert(Alert.AlertType.ERROR, "username already taken");
             alert.show();
         }
@@ -107,7 +107,6 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dao = new UserDBDao();
         users = dao.getAll();
-        users.remove(0);
         usernames = new ArrayList<>();
         for (User user: users) {
             usernames.add(user.getUsername());
