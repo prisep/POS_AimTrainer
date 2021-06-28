@@ -107,7 +107,7 @@ public class Mode {
 
 
                         //Highscore
-                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscorePrecision()){
+                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscorePrecision() || CurrentUser.getHighscorePrecision() == 0){
                             CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
                             dao.update(CurrentUser);
                         }
@@ -128,10 +128,7 @@ public class Mode {
 
     public void accuracyLevel(Canvas c, GraphicsContext context) {
         context.setFill(Color.BLACK);
-
-
         final boolean[] fertig = {false};
-
 
         Random rand = new Random(); //instance of random class
         Screen screen = Screen.getPrimary();
@@ -165,8 +162,6 @@ public class Mode {
             System.out.println("X-Achse: " + x + "  Y-Achse " + y);
 
 
-
-
                 if(enemycoordinates[0][0] <= x && enemycoordinates[0][0]+40 >= x && enemycoordinates[0][1] <= y && enemycoordinates[0][1]+40 >= y){
                     System.out.println("HIT!!!");
                     context.setFill(Color.BLACK);
@@ -188,11 +183,11 @@ public class Mode {
 
 
                         //Highscore
-                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscoreAccuracy()){
-                            CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
+                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscoreAccuracy() || CurrentUser.getHighscoreAccuracy() == 0){
+                            CurrentUser.setHighscoreAccuracy((int)(timeEnd - timeStart[0])/1000);
                             dao.update(CurrentUser);
                         }
-                        context.fillText("Highscore: "+CurrentUser.getHighscorePrecision() + " Sekunden", 250,460);
+                        context.fillText("Highscore: "+CurrentUser.getHighscoreAccuracy() + " Sekunden", 250,460);
                     }
 
                 }else{
@@ -222,52 +217,52 @@ public class Mode {
         final double[] timeStart = new double[1];
         c.setOnMouseClicked(event -> {
 
-            if(firstClick[0][0] == 0){
+            if (firstClick[0][0] == 0) {
                 timeStart[0] = System.currentTimeMillis();
             }
             firstClick[0][0]++;
             cntShoots++;
-            int x = (int)event.getX();
-            int y = (int)event.getY();
+            int x = (int) event.getX();
+            int y = (int) event.getY();
             System.out.println("X-Achse: " + x + "  Y-Achse " + y);
             for (int i = 0; i < 30; i++) {
-                if(enemycoordinates[i][0] <= x && enemycoordinates[i][0]+40 >= x && enemycoordinates[i][1] <= y && enemycoordinates[i][1]+40 >= y){
+                if (enemycoordinates[i][0] <= x && enemycoordinates[i][0] + 40 >= x && enemycoordinates[i][1] <= y && enemycoordinates[i][1] + 40 >= y) {
                     System.out.println("HIT!!!");
                     context.setFill(Color.BLACK);
-                    context.fillRect(enemycoordinates[i][0],enemycoordinates[i][1],40,40);
+                    context.fillRect(enemycoordinates[i][0], enemycoordinates[i][1], 40, 40);
                     enemycoordinates[i][0] *= -1;
                     enemycoordinates[i][1] *= -1;
                     cntHits++;
-                    if(isLastHit()){
+                    if (isLastHit()) {
                         //System.out.println("Sie haben alle Ziele getroffen");
                         System.out.println("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.");
-                        System.out.println("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%");
+                        System.out.println("Sie haben eine Trefferrate von: " + (double) cntHits / cntShoots * 100 + "%");
                         final double timeEnd = System.currentTimeMillis();
-                        System.out.println("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht");
+                        System.out.println("Sie haben " + (timeEnd - timeStart[0]) / (double) 1000 + " Sekunden gebraucht");
 
                         context.setFill(Color.WHITE);
 
-                        context.fillText("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.", 250,400);
-                        context.fillText("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%", 250,420);
-                        context.fillText("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht", 250,440);
+                        context.fillText("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.", 250, 400);
+                        context.fillText("Sie haben eine Trefferrate von: " + (double) cntHits / cntShoots * 100 + "%", 250, 420);
+                        context.fillText("Sie haben " + (timeEnd - timeStart[0]) / (double) 1000 + " Sekunden gebraucht", 250, 440);
 
 
                         //Highscore
-                        if((timeEnd - timeStart[0])/(double)1000 < CurrentUser.getHighscoreSpeed()){
-                            CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
+
+                        if ((timeEnd - timeStart[0]) / (double) 1000 < CurrentUser.getHighscoreSpeed() || CurrentUser.getHighscoreSpeed() == 0) {
+                            CurrentUser.setHighscoreSpeed((int) (timeEnd - timeStart[0]) / 1000);
                             dao.update(CurrentUser);
+
                         }
 
-                        if(CurrentUser.getHighscoreSpeed() != 0){
-                            context.fillText("Highscore: "+CurrentUser.getHighscorePrecision() + " Sekunden", 250,460);
-                        }
+                        context.fillText("Highscore: " + CurrentUser.getHighscoreSpeed() + " Sekunden", 250, 460);
+
+
+                    } else {
+                        cntFails++;
                     }
-
-                }else{
-                    cntFails++;
                 }
             }
-
         });
     }
 
