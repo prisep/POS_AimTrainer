@@ -4,6 +4,8 @@ import com.sun.prism.paint.Paint;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import sample.dal.dao.Dao;
+import sample.dal.dao.UserDBDao;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,6 +21,17 @@ public class Mode {
     int points = 0;
     int maxPoints = 30 * 50;
     int accuracyIdx = 0;
+    Dao dao = new UserDBDao();
+
+    public User getCurrentUser() {
+        return CurrentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        CurrentUser = currentUser;
+    }
+
+    User CurrentUser;
 
     public Mode(Modes mode, Canvas c, GraphicsContext context) {
         this.mode = mode;
@@ -89,6 +102,15 @@ public class Mode {
                         context.fillText("Sie haben von maximalen " + maxPoints + " Punkten  " + points + " Punkte erreicht", 250,420);
                         context.fillText("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht", 250,440);
                         System.out.println("Sie haben von maximalen " + maxPoints + "  " + points + " erreicht");
+
+
+                        //Highscore
+                        if((timeEnd - timeStart[0])/(double)1000 > CurrentUser.getHighscorePrecision()){
+                            CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
+                            dao.update(CurrentUser);
+                        }
+                        context.fillText("Highscore: "+CurrentUser.getHighscorePrecision() + " Sekunden", 250,460);
+
                     }
                     isHit.set(true);
 
@@ -157,6 +179,14 @@ public class Mode {
                         context.fillText("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.", 250,400);
                         context.fillText("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%", 250,420);
                         context.fillText("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht", 250,440);
+
+
+                        //Highscore
+                        if((timeEnd - timeStart[0])/(double)1000 > CurrentUser.getHighscoreAccuracy()){
+                            CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
+                            dao.update(CurrentUser);
+                        }
+                        context.fillText("Highscore: "+CurrentUser.getHighscorePrecision() + " Sekunden", 250,460);
                     }
 
                 }else{
@@ -214,6 +244,14 @@ public class Mode {
                         context.fillText("Sie haben von " + cntShoots + " Schüssen " + cntHits + " getroffen.", 250,400);
                         context.fillText("Sie haben eine Trefferrate von: " + (double)cntHits/cntShoots * 100 + "%", 250,420);
                         context.fillText("Sie haben " + (timeEnd - timeStart[0])/(double)1000 + " Sekunden gebraucht", 250,440);
+
+
+                        //Highscore
+                        if((timeEnd - timeStart[0])/(double)1000 > CurrentUser.getHighscoreSpeed()){
+                            CurrentUser.setHighscorePrecision((int)(timeEnd - timeStart[0])/1000);
+                            dao.update(CurrentUser);
+                        }
+                        context.fillText("Highscore: "+CurrentUser.getHighscorePrecision() + " Sekunden", 250,460);
                     }
 
                 }else{

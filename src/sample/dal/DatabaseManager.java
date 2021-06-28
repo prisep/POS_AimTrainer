@@ -1,19 +1,15 @@
 package sample.dal;
-
 import sample.bll.User;
 import sample.util.PropertyManager;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class DatabaseManager {
     private static DatabaseManager instance;
     private String driver;
     private String url;
     private String username;
     private String password;
-
     private DatabaseManager(){
         PropertyManager.getInstance().setFilemname("db.properties");
         this.driver = PropertyManager.getInstance().readProperty("driver", "oracle.jdbc.OracleDriver");
@@ -21,7 +17,6 @@ public class DatabaseManager {
         this.username = PropertyManager.getInstance().readProperty("username", "d3a09");;
         this.password = PropertyManager.getInstance().readProperty("password", "d3a09");;
     }
-
     private Connection createConnection(){
         Connection con = null;
         //Laden des Treibers
@@ -33,21 +28,17 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return con;
-
     }
-
     public static DatabaseManager getInstance(){
         if(instance == null){
             instance = new DatabaseManager();
         }
         return instance;
     }
-
     public List<User> getAllUsers(){
         List<User> all = new ArrayList<>();
         Statement stmt;
         ResultSet resultSet;
-
         String query = "SELECT * FROM spieler";
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
@@ -69,17 +60,14 @@ public class DatabaseManager {
                             all.add(new User(resultSet.getString(1), resultSet.getString(2)));
                         }
                     }
-
                 }
                 return all;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return all;
     }
-
     public boolean updateUser(User s){
         boolean result = false;
         PreparedStatement preparedStatement;
@@ -93,7 +81,6 @@ public class DatabaseManager {
                 preparedStatement.setInt(4, s.getHighscoreAccuracy());
                 preparedStatement.setString(5, s.getUsername());
 
-
                 int rowsUpdated = preparedStatement.executeUpdate();
                 if (rowsUpdated > 0) {
                     result = true;
@@ -102,24 +89,20 @@ public class DatabaseManager {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return result;
     }
-
     public boolean insertUser (User s){
         boolean result = false;
         PreparedStatement preparedStatement;
         String stmt_insert = "INSERT INTO spieler (username, password) VALUES (?, ?)";
         ResultSet resultSet;
         int id = -1;
-
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
                 preparedStatement = con.prepareStatement(stmt_insert);
                 preparedStatement.setString(1, s.getUsername());
                 preparedStatement.setString(2, s.getPassword());
                 preparedStatement.execute();
-
                 resultSet = preparedStatement.getGeneratedKeys();
                 if(resultSet.next()){
                     result = true;
@@ -128,15 +111,12 @@ public class DatabaseManager {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return result;
     }
-
     public boolean deleteUser (int id){
         boolean result = false;
         PreparedStatement preparedStatement;
         String stmt_insert = "DELETE FROM spieler WHERE idUser=?";
-
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
                 preparedStatement = con.prepareStatement(stmt_insert);
@@ -149,32 +129,27 @@ public class DatabaseManager {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return result;
     }
-
-    public User getById(int id){
+    public User getByUsername(String username){
         User s = null;
         ResultSet resultSet;
-        String stmt = "SELECT * FROM spieler WHERE idUser=?";
+        String stmt = "SELECT * FROM spieler WHERE username=?";
         PreparedStatement preparedStatement;
-
         try {
             try(Connection con = createConnection()){ // Wird automatisch am ende von try geschlossen
                 //Statement wird erzeugt
                 preparedStatement = con.prepareStatement(stmt);
-                preparedStatement.setInt(1, id);
+                preparedStatement.setString(1, username);
                 resultSet = preparedStatement.executeQuery();
                 if(resultSet.next()){
                     s = new User(resultSet.getString(1), resultSet.getString(2),
-                            resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(4));
+                            resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getDate(6));
                 }
-
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return s;
     }
 }
